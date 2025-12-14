@@ -72,8 +72,64 @@ void mainMenu(){
   cout<<"3. Exit "<<endl<<endl;
   cout<<"Enter your choice :";
   int choice;     //declaring choice 
-  cin>>
-
+  cin>>choice     //input from user 
+  cout << endl;
+  switch (choice)
+    case 1: 
+      cout << "Starting new game .."<<endl<<endl;
+      startNewGame();
+      break;
+    case 2:
+      cout << "loading game ...."<<endl<<endl;
+      loadGame ();
+      break;
+    case 3:
+      cout << Exiting game .Good bye ....."<<end<<endl;
+      isRunning = false ;
+      break;
+  default : 
+    cout << "Invalid choice . Please try again ."<<endl <<endl;
+  //START NEW GAME
+  void atartNewGame (){
+    //reset puzzles to unsolved 
+    for (int i = 0; i <roomcount ; i++ ){
+          puzzleSolved [i] = false ;
+    }
+    //clear inventory 
+    inventoryCount = 0;
+    bool success = loadGameFromFile(loadedRoom);
+    if (success){
+          cout << "Game loaded successfully "<<endl;
+          cout << "you are currently in ... "<<roomNames[loadedRoom]<<endl<<endl;
+          gameloop(loadedRoom);
+    }
+    else {
+        cout << "No valid save file found .Starting a new game instead "<<endl<<endl;
+        startNewGame ();
+      }
+  }
+  //Main game loop 
+  void gameLoop(int startRoom){
+            bool inGame = true;
+            int currentRoom = startRoom;
+            int currentRoomPtr = &currentRoom;
+            while(inGame){
+                //player move to last room 
+                if (currentRoom >= countroom ){
+                    cout << "you have reached at the end of giki "<< endl;
+                    cout << "congratulation you have completed the adventure "<<endl << endl;
+                    break;
+                }
+            cout << "================================="<<endl;
+            cout << "now you are in : << roomNames [currentRoom] << endl;
+            cout << "=================================="<< endl;
+            showRoomMenu(currentRoomPtr);
+            if (currentRoomMenu >= roomcount){
+                      cout << "you finally stepped out from giki "<<endl;
+                      cout <<"===========Game Over ============"<<endl;
+              }
+                        
+                
 
 
 
