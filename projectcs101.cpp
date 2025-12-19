@@ -168,3 +168,70 @@ void gameLoop(int startRoom) {
         }
     }
 }
+// FUNCTION FOR ROOM MENU  
+void showRoomMenu(int *currentRoom) {
+    bool stayInRoom = true;      //bool condition for staying in the room 
+
+    while (stayInRoom) {        //while condition until the user want to stay in the room 
+        cout << endl << "Room Menu " << roomNames[*currentRoom] << endl;
+        //option for room menu 
+        cout << "1. View Room Details" << endl;
+        cout << "2. Solve Puzzle" << endl;
+        cout << "3. Show Inventory" << endl;
+        cout << "4. Move to Next Room" << endl;
+        cout << "5. Save Game" << endl;
+        cout << "6. Exit to Main Menu"<< endl;
+        cout << "Enter your choice: " << endl;
+
+        int choice;         					//declaring choice variable 
+        cin >> choice;							//user  input 
+        
+		//using switch for different choices 
+        switch (choice) {      
+			//view room         
+            case 1:
+                viewRoom(*currentRoom);
+                break;				//using break
+			//solving puzzle 
+            case 2:
+            		//if else condition for checking puzzle 
+                if (puzzleSolved[*currentRoom]) {				//if puzzle is correct 
+                    cout << "\nThe puzzle in this room is already solved."<< endl << endl;
+                } else {										//if puzzle is wrong 
+                    cout << "Attempting puzzle" << endl;
+                    solvePuzzleRecursive(*currentRoom);   // calling recurrsive function 
+                }
+                break;			
+			//show inventory 
+            case 3:
+                showInventory();       // calling function 
+                break;					
+			//next room 
+            case 4:
+                moveToNextRoom(currentRoom);		//recurrsive function 
+                // if wan to go another room leave this room 
+                if (*currentRoom >= roomcount) {
+                    stayInRoom = false;
+                }
+                break;     				
+			//save game 
+            case 5:
+                saveGame(*currentRoom);				//calling function 
+                break;         
+			//exit game 				
+            case 6:
+                cout << endl << "Exiting to main menu from this room..." << endl;
+                stayInRoom = false;			
+                break;			
+
+            default:		//condition if the choice is wrong 
+                cout << endl << "Invalid choice, please try again."<< endl;
+                break;				
+        }
+
+        // in the last room if user want to change room show error 
+        if (!stayInRoom) {
+            break;    			//using break
+        }
+    }
+}
