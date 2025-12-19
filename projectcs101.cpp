@@ -300,3 +300,29 @@ void saveGame(int currentRoom) {
     outFile.close();     //closing file 
     cout << endl <<  "Game saved successfully to " << "savefile.txt" << endl ;
 }
+// LOAD GAME FROM FILE 
+bool loadGameFromFile(int &currentRoom) {   // using refrence loop 
+    ifstream inFile("savefile.txt");       //reading from file 
+    if (!inFile) {						//if file does not open 
+        return false;   // file not found
+    }
+    // Load current room
+    inFile >> currentRoom;
+
+    // Load puzzleSolved array
+    for (int i = 0; i < roomcount; i++) {
+        int val;     //declaring variable 
+        inFile >> val;               // 0 or 1
+        puzzleSolved[i] = (val != 0);        
+    }
+
+    // Load inventoryCount and items
+    inFile >> inventoryCount;    // reading from file 
+    inFile.ignore(); // ignore empty  newline
+    for (int i = 0; i < inventoryCount; i++) {   //for loop for reading file 
+        getline(inFile, inventory[i]);
+    }
+
+    inFile.close();   //closing file 
+    return true;     //returning true because it is bool type function
+}
