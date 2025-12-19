@@ -99,4 +99,32 @@ void mainMenu() {
                 break;
         }
     }
+} 
+
+void startNewGame() {
+    // reset puzzles to unsolved
+    for (int i = 0; i < roomcount; i++) {
+        puzzleSolved[i] = false;
+    }
+
+    // clear inventory
+    inventoryCount = 0;
+
+    int startingRoom = 0;
+    gameLoop(startingRoom);
+}
+
+// ----- LOAD GAME ENTRY -----
+void loadGame() {
+    int loadedRoom = 0;
+    bool success = loadGameFromFile(loadedRoom);
+
+    if (success) {
+        cout << "Game loaded successfully!"<<endl;
+        cout << "You are currently in: " << roomNames[loadedRoom] <<endl<<endl;
+        gameLoop(loadedRoom);
+    } else {
+        cout << "No valid save file found. Starting a new game instead.\n\n";
+        startNewGame();
+    }
 }
