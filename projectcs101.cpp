@@ -247,3 +247,56 @@ void viewRoom(int room) {
         cout << "Status: Puzzle not solved yet."<< endl << endl;
     }
 }
+
+// SHOW INVENTORY 
+void showInventory() {     
+    cout << "---------- Inventory ----------"<< endl;
+    // condition if user want to see inventory in the start of game 
+    if (inventoryCount == 0) {       
+        cout << "Your inventory is empty."<< endl;
+    }
+	 // if user want to see inventory durinh game 
+	 else {
+	 	// using for loop of user want to see inventory at any instant of the game 
+        for (int i = 0; i < inventoryCount; i++) {      	
+            cout << (i + 1) << ". " << inventory[i] << endl ;
+        }
+    }
+    cout << "-------------------------------" << endl;
+}
+
+//  ADD ITEM TO INVENTORY 
+void addItemToInventory(const string &itemName) {     //using call to refrence 
+    if (inventoryCount < invenmax) {		//if condition for item les avilable  
+        inventory[inventoryCount] = itemName; 
+        inventoryCount++;    //incrementing items 
+        cout << "Item added to inventory: " << itemName << endl;
+    } else {			// condition if items finish in room 
+        cout << "Inventory is full! Cannot add more items." << endl;
+    }
+}
+
+// SAVING  GAME TO FILE 
+void saveGame(int currentRoom) {    
+    ofstream outFile("savefile.txt");      //opening file 
+    if (!outFile) {						//if file does not open show error 
+        cout << "Error opening save file for writing.\n";
+        return;
+    }
+    // Save current room
+    outFile << currentRoom << endl;
+    // Save puzzleSolved array using for loop 
+    for (int i = 0; i < roomcount; i++) {
+        outFile << puzzleSolved[i] << " ";
+    }
+    outFile << endl ; //next line in file 
+
+    // Save inventoryCount  and items
+    outFile << inventoryCount << endl;
+    for (int i = 0; i < inventoryCount; i++) { // for loop for saving inventory in file 
+        outFile << inventory[i] << endl;
+    }
+
+    outFile.close();     //closing file 
+    cout << endl <<  "Game saved successfully to " << "savefile.txt" << endl ;
+}
