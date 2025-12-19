@@ -35,4 +35,24 @@ string puzzleAnswers[roomcount] = {
     "circle",
     "egg",
     "roses"
-};
+}; 
+
+bool puzzleSolved[roomcount] = { false, false, false, false, false };
+
+
+string inventory[invenmax];
+int inventoryCount = 0;
+
+
+void mainMenu();
+void startNewGame();
+void loadGame();
+void gameLoop(int startRoom);
+void showRoomMenu(int *currentRoom);
+void viewRoom(int room);
+void showInventory();
+void addItemToInventory(const string &itemName);
+void saveGame(int currentRoom);
+bool loadGameFromFile(int &currentRoom);
+void moveToNextRoom(int *currentRoom);
+void solvePuzzleRecursive(int roomIndex);
