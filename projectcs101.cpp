@@ -128,3 +128,41 @@ void loadGame() {
         startNewGame();
     }
 }
+void gameLoop(int startRoom) {
+    bool inGame = true;
+    int currentRoom = startRoom;
+    int *currentRoomPtr = &currentRoom;   // pointer to current room
+
+    while (inGame) {
+        // If player has moved beyond last room ? game finished
+        if (currentRoom >= roomcount) {
+            cout << endl<<"You have reached the end of the mansion."<<endl;
+            cout << "Congratulations, you completed the adventure!"<<endl<<endl;
+            break;
+        }
+
+        cout << "------------------------------------"<<endl;
+        cout << "You are now in: " << roomNames[currentRoom] << endl;
+        cout << "------------------------------------"<<endl;
+
+        // Show room menu that uses pointer and functions
+        showRoomMenu(currentRoomPtr);
+
+        // If player completed all rooms inside room menu
+        if (currentRoom >= roomcount) {
+            cout << "\nYou step out into the daylight as the mansion disappears behind you."<<endl;
+            cout << "========= GAME OVER ========="<<endl<<endl;
+            break;
+        }
+
+        // Ask if player wants to keep playing this session
+        cout << "\nDo you want to continue this session? (y/n): ";
+        char choice;
+        cin >> choice;
+
+        if (choice == 'n' || choice == 'N') {
+            cout << endl<<"Returning to main menu..."<<endl<<endl;
+            inGame = false;
+        }
+    }
+}
