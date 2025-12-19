@@ -347,3 +347,17 @@ void moveToNextRoom(int *currentRoom) {     // using pass by pointer
         cout << "You move into the next room: " << roomNames[*currentRoom] << endl;
     }
 }
+// SOLVE PUZZLE 
+void solvePuzzleRecursive(int roomIndex) {      //recurrsive function 
+    cout << "Puzzle for room: " << roomNames[roomIndex] << endl;
+    cout << "Question: " << endl << puzzleQuestions[roomIndex] << endl;
+    cout << "Enter your answer (single word, lowercase): ";
+    string answer;       // declaring string variable 
+    cin >> answer;		//input user 
+    if (answer == puzzleAnswers[roomIndex]) {		//if puzzle solved  sow message 
+        cout <<  endl << "Correct! You solved the puzzle." << endl;
+        puzzleSolved[roomIndex] = true;     // increasing room index 
+        // Example reward item
+        string reward = "Key from " + roomNames[roomIndex];     // reward 
+        addItemToInventory(reward);   			//recurrsive function  calling another function inside this function 
+    }
