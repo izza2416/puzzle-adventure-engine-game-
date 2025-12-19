@@ -68,7 +68,7 @@ int main() { //main function
 void mainMenu() {
     bool isRunning = true;  //declaring isrunning 
 
-    while (isRunning) {
+    while (isRunning) {  //using while loop to show main menu each time 
         cout << "===================================="<<endl;
         cout << "        MYSTERY ADVENTURE GAME      "<<endl;
         cout << "===================================="<<endl<<endl;
@@ -77,48 +77,48 @@ void mainMenu() {
         cout << "3. Exit"<<endl<<endl;
         cout << "Enter your choice: ";
 
-        int choice;
-        cin >> choice;
+        int choice; //declaring choice 
+        cin >> choice; //user input choice
 
-        switch (choice) {
+        switch (choice) { //using switch 
             case 1:
                 cout << "\nStarting a new game..."<<endl<<endl;
-                startNewGame();
-                break;
+                startNewGame();//calling startnewgame function
+                break; //using break so it should stop 
 
             case 2:
                 cout <<endl<<"Loading game..."<<endl<<endl;
-                loadGame();
+                loadGame();  //calling newgame 
                 break;
 
             case 3:
                 cout << endl<<"Exiting game. Goodbye!"<<endl;
-                isRunning = false;   
+                isRunning = false;   // stop main menu loop
                 break;
 
-            default:
+            default: 	//defalut for wrong choice 
                 cout << endl<<"Invalid choice. Please try again."<<endl<<endl;
                 break;
         }
     }
 } 
-
+//start new game 
 void startNewGame() {
-    
+    // reset puzzles to unsolved
     for (int i = 0; i < roomcount; i++) {
         puzzleSolved[i] = false;
     }
 
-  
+  //clear inventory
     inventoryCount = 0;
 
-    int startingRoom = 0;
-    gameLoop(startingRoom);
+    int startingRoom = 0; //initializing starting room 
+    gameLoop(startingRoom); //recurssive function
 }
 
-
+//load game entry
 void loadGame() {
-    int loadedRoom = 0;
+    int loadedRoom = 0; //initializing
     bool success = loadGameFromFile(loadedRoom);
 
     if (success) {
@@ -130,13 +130,14 @@ void loadGame() {
         startNewGame();
     }
 }
+// MAIN GAME LOOP (ROOM PROGRESSION)
 void gameLoop(int startRoom) {
     bool inGame = true;
     int currentRoom = startRoom;
-    int *currentRoomPtr = &currentRoom;  
+    int *currentRoomPtr = &currentRoom;  // pointer to current room
 
     while (inGame) {
-       
+        // If player has moved beyond last room ? game finished
         if (currentRoom >= roomcount) {
             cout << endl<<"You have reached the end of the mansion."<<endl;
             cout << "Congratulations, you completed the adventure!"<<endl<<endl;
@@ -147,18 +148,17 @@ void gameLoop(int startRoom) {
         cout << "You are now in: " << roomNames[currentRoom] << endl;
         cout << "------------------------------------"<<endl;
 
-       
+       // Show room menu that uses pointer and functions
         showRoomMenu(currentRoomPtr);
 
-       
+       // If player completed all rooms inside room menu
         if (currentRoom >= roomcount) {
             cout << "\nYou step out into the daylight as the mansion disappears behind you."<<endl;
             cout << "========= GAME OVER ========="<<endl<<endl;
             break;
         }
-
-       
-        cout << "\nDo you want to continue this session? (y/n): ";
+          // Ask if player wants to keep playing this session
+        cout << endl<<"Do you want to continue this session? (y/n): ";
         char choice;
         cin >> choice;
 
