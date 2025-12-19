@@ -361,3 +361,15 @@ void solvePuzzleRecursive(int roomIndex) {      //recurrsive function
         string reward = "Key from " + roomNames[roomIndex];     // reward 
         addItemToInventory(reward);   			//recurrsive function  calling another function inside this function 
     }
+    else { 									//if  puzzle is incorrect 
+        cout << endl << "Incorrect answer." << endl;
+        cout << "Do you want to try again? (y/n): "; 		// if user want to play again 
+        char choice;				// declaring choice 
+        cin >> choice;				//user input
+        if (choice == 'y' || choice == 'Y') {		
+            solvePuzzleRecursive(roomIndex);    		// recursive call to retry puzzle
+        } else {
+            cout << "You decide to leave the puzzle for now." << endl ; 
+        }
+    }
+} 
