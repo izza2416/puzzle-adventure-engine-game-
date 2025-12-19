@@ -326,3 +326,24 @@ bool loadGameFromFile(int &currentRoom) {   // using refrence loop
     inFile.close();   //closing file 
     return true;     //returning true because it is bool type function
 }
+// MOVE TO NEXT ROOM 
+void moveToNextRoom(int *currentRoom) {     // using pass by pointer 
+    if (*currentRoom >= roomcount) {		//if user is in last room 
+        cout << endl << "You are already beyond the last room." << endl;
+        return;
+    }
+    if (!puzzleSolved[*currentRoom]) {          // if user want to go to another room without solving puzzle 
+        cout << "You cannot move to the next room yet." << endl;
+        cout << "Solve the puzzle in this room first." << endl;
+        return;
+    }
+    cout << endl << "The door unlocks and slowly opens..." << endl ;
+    (*currentRoom)++;     //incrementing the room number pointer 
+
+    if (*currentRoom >= roomcount) {        //condition if puzzle is solved 
+        cout << "You walk through the final door towards freedom." << endl;
+    } 
+	else {
+        cout << "You move into the next room: " << roomNames[*currentRoom] << endl;
+    }
+}
