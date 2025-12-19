@@ -235,3 +235,15 @@ void showRoomMenu(int *currentRoom) {
         }
     }
 }
+// ROOM DETAILS 
+void viewRoom(int room) {		
+    cout << endl << "Room: " << roomNames[room] << endl << endl;    //showing room names 
+    cout << roomDescriptions[room] << endl ;     // array for rooms 
+
+    if (puzzleSolved[room]) {		//if puzzle solved show this message 
+        cout << endl << "Status: Puzzle solved." << endl << endl;
+    } 
+	else {    //if puzzle is not solved  show this message 
+        cout << "Status: Puzzle not solved yet."<< endl << endl;
+    }
+}
