@@ -1,10 +1,11 @@
-#include<iostream>
-#include<fstream>
-using namespace std;
-
+#include<iostream>//using input output library 
+#include<fstream>  //fstream lirary for file handling 
+#include<string>//library for handling strings 
+using namespace std; //using standrd namespace 
+//intializing global varaible
 const int roomcount = 5;
-const int invenmax = 10;
-
+const int invenmax = 10; // initializing  constants 
+// global array for room names 
 string roomNames[roomcount] = {
     "FCSE",
     "ACB",
@@ -12,7 +13,7 @@ string roomNames[roomcount] = {
     "TUC",
     "LIBRARY"
 };
-
+// global array for descriptions of rooms
 string roomDescriptions[roomcount] = {
     "A building where offices,lecture hall and labs are situated. ",
     "A building where many students are taking lectures.",
@@ -20,6 +21,7 @@ string roomDescriptions[roomcount] = {
     "place where many foods are being served and a reg desk is setted up.",
     "students are studing there ."
 };
+// global array for puzzle 
 string puzzleQuestions[roomcount] = {
     "what is 2+2 ",
     "What comes after d",
@@ -28,7 +30,7 @@ string puzzleQuestions[roomcount] = {
     "LIFE is not a bed of ------?"
 };
 
-
+// global array for answers of puzzle 
 string puzzleAnswers[roomcount] = {
     "4",
     "e",
@@ -36,14 +38,14 @@ string puzzleAnswers[roomcount] = {
     "egg",
     "roses"
 }; 
-
+// global array for puzzle status 
 bool puzzleSolved[roomcount] = { false, false, false, false, false };
 
-
+// Inventory data
 string inventory[invenmax];
 int inventoryCount = 0;
 
-
+// FUNCTION DECLARATIONS 
 void mainMenu();
 void startNewGame();
 void loadGame();
@@ -55,16 +57,16 @@ void addItemToInventory(const string &itemName);
 void saveGame(int currentRoom);
 bool loadGameFromFile(int &currentRoom);
 void moveToNextRoom(int *currentRoom);
-void solvePuzzleRecursive(int roomIndex);
-// ----- MAIN -----
-int main() {
-    mainMenu();
+void solvePuzzleRecursive(int roomIndex);//recursion used here
+
+int main() { //main function 
+    mainMenu();// calling main menu function
     return 0;
 }
 
-// ----- MAIN MENU -----
+// MAIN MENU  function 
 void mainMenu() {
-    bool isRunning = true;
+    bool isRunning = true;  //declaring isrunning 
 
     while (isRunning) {
         cout << "===================================="<<endl;
@@ -91,7 +93,7 @@ void mainMenu() {
 
             case 3:
                 cout << endl<<"Exiting game. Goodbye!"<<endl;
-                isRunning = false;    // stop main menu loop
+                isRunning = false;   
                 break;
 
             default:
@@ -102,19 +104,19 @@ void mainMenu() {
 } 
 
 void startNewGame() {
-    // reset puzzles to unsolved
+    
     for (int i = 0; i < roomcount; i++) {
         puzzleSolved[i] = false;
     }
 
-    // clear inventory
+  
     inventoryCount = 0;
 
     int startingRoom = 0;
     gameLoop(startingRoom);
 }
 
-// ----- LOAD GAME ENTRY -----
+
 void loadGame() {
     int loadedRoom = 0;
     bool success = loadGameFromFile(loadedRoom);
@@ -131,10 +133,10 @@ void loadGame() {
 void gameLoop(int startRoom) {
     bool inGame = true;
     int currentRoom = startRoom;
-    int *currentRoomPtr = &currentRoom;   // pointer to current room
+    int *currentRoomPtr = &currentRoom;  
 
     while (inGame) {
-        // If player has moved beyond last room ? game finished
+       
         if (currentRoom >= roomcount) {
             cout << endl<<"You have reached the end of the mansion."<<endl;
             cout << "Congratulations, you completed the adventure!"<<endl<<endl;
@@ -145,17 +147,17 @@ void gameLoop(int startRoom) {
         cout << "You are now in: " << roomNames[currentRoom] << endl;
         cout << "------------------------------------"<<endl;
 
-        // Show room menu that uses pointer and functions
+       
         showRoomMenu(currentRoomPtr);
 
-        // If player completed all rooms inside room menu
+       
         if (currentRoom >= roomcount) {
             cout << "\nYou step out into the daylight as the mansion disappears behind you."<<endl;
             cout << "========= GAME OVER ========="<<endl<<endl;
             break;
         }
 
-        // Ask if player wants to keep playing this session
+       
         cout << "\nDo you want to continue this session? (y/n): ";
         char choice;
         cin >> choice;
