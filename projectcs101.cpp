@@ -56,3 +56,47 @@ void saveGame(int currentRoom);
 bool loadGameFromFile(int &currentRoom);
 void moveToNextRoom(int *currentRoom);
 void solvePuzzleRecursive(int roomIndex);
+// ----- MAIN -----
+int main() {
+    mainMenu();
+    return 0;
+}
+
+// ----- MAIN MENU -----
+void mainMenu() {
+    bool isRunning = true;
+
+    while (isRunning) {
+        cout << "===================================="<<endl;
+        cout << "        MYSTERY ADVENTURE GAME      "<<endl;
+        cout << "===================================="<<endl<<endl;
+        cout << "1. Start New Game"<<endl;
+        cout << "2. Load Game"<<endl;
+        cout << "3. Exit"<<endl<<endl;
+        cout << "Enter your choice: ";
+
+        int choice;
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                cout << "\nStarting a new game..."<<endl<<endl;
+                startNewGame();
+                break;
+
+            case 2:
+                cout <<endl<<"Loading game..."<<endl<<endl;
+                loadGame();
+                break;
+
+            case 3:
+                cout << endl<<"Exiting game. Goodbye!"<<endl;
+                isRunning = false;    // stop main menu loop
+                break;
+
+            default:
+                cout << endl<<"Invalid choice. Please try again."<<endl<<endl;
+                break;
+        }
+    }
+}
