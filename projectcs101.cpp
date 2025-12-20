@@ -82,7 +82,7 @@ void mainMenu() {
 
         switch (choice) { //using switch 
             case 1:
-                cout << "\nStarting a new game..."<<endl<<endl;
+                cout << endl << "Starting a new game..."<<endl<<endl;
                 startNewGame();//calling startnewgame function
                 break; //using break so it should stop 
 
@@ -191,12 +191,12 @@ void showRoomMenu(int *currentRoom) {
 			//view room         
             case 1:
                 viewRoom(*currentRoom);
-                break;				//using break
+                break;				//using break so it should not read further cases
 			//solving puzzle 
             case 2:
             		//if else condition for checking puzzle 
                 if (puzzleSolved[*currentRoom]) {				//if puzzle is correct 
-                    cout << "\nThe puzzle in this room is already solved."<< endl << endl;
+                    cout << endl << "The puzzle in this room is already solved."<< endl << endl;
                 } else {										//if puzzle is wrong 
                     cout << "Attempting puzzle" << endl;
                     solvePuzzleRecursive(*currentRoom);   // calling recurrsive function 
